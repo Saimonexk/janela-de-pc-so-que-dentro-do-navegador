@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows 7, janela</title>
+</head>
+<body>
+ <div id="tudo" style="display: none;">
+          <style>
+             body{
+                background: black;
+              }
+              #janela {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 500px;
+                height: 400px;
+                background-color: #fff;
+                border: 1px solid #ccc;
+              }
+
+              #barra-titulo {
+                background-color: #ccc;
+                color: #fff;
+                padding: 5px;
+                cursor: move;
+              }
+              
+              #fechar {
+                float: right;
+                cursor: pointer;
+                background: rgba(255, 0, 0, 0.384);
+                padding: 2px 10px 2px 10px;
+              }
+              
+              #minimizar {
+                float: right;
+                cursor: pointer;
+                margin-right: 5px;
+                background: #4d4d4d7e;
+                padding: 2px 10px 2px 10px;
+              }
+              
+              #maximizar {
+                float: right;
+                cursor: pointer;
+                margin-right: 5px;
+                background: #4d4d4d7e;
+                padding: 2px 10px 2px 10px;
+              }
+              #fechar:hover{
+                background: red;
+              }
+              #minimizar:hover{
+                background: rgba(30, 124, 187, 0.87);
+              }
+              #maximizar:hover{
+                background: rgba(30, 124, 187, 0.87);
+              }             
+              #conteudo-janela {
+                padding: auto ;
+                margin-bottom: auto;
+                height: 100%;
+                width: 100%;
+              }
+              #bloco-notas{
+                width: 100%;
+                height: 100%;
+                resize: none;
+              }
+              #barra-titulo {
+                background-color: #979393;
+                color: #fff;
+                
+                cursor: move;
+                user-select: none; /* Impede que o texto seja selecionado ao arrastar a janela */
+                width: 99%;
+              }
+
+            </style>
+            <div id="janela">
+            <div id="fechar">X</div>
+            <div id="maximizar">+</div>
+            <div id="minimizar">-</div>
+                <div id="barra-titulo">Bloco de notas - Leia me</div>
+                <div id="conteudo-janela">
+                    <textarea id="bloco-notas">Olá ! Prazer, sou o Erick Gonçalves            
+  Para uma melhor navegação, eu fiz de uma jeitinho fácil de utilizar. É como se você estivesse em casa ! Se você quiser pode mudar de sistema operacional clicando no ícone inferior esquerdo.
+                
+  < == <== <==
+  
+  *
+  - - - Tenho 19 anos de idade, sou residente no Rio de Janeiro e estou animado com a possibilidade de fazer o seu negócio disparar
+  
+  *
+  - - - No momento estou trabalhando em projetos pessoais, além de trabalhar com a empresa AMG,
+  
+  *
+  - - - Sou altamente capacitado com experiência em criação de soluções digitais inovadoras.
+  
+  *
+  - - - Possuo habilidades sólidas em HTML, CSS, JavaScript, além de experiência com desenvolvimento back-end com linguagens como PHP e Python.
+  Tenho preferência em usar WordPress, Elementor e plugins para acelerar a criação de sites, desse modo posso gerencia-lo para obter melhores resultados no seu serviço.
+  
+  *
+  - - - Eu sempre obtive bons resultados trabalhando sozinho, entretanto estou disposto em formar uma equipe
+  
+  *
+  - - - Busco constantemente aprimorar minhas habilidades com estudos por cursos, faculdades e criadores de conteúdo pela internet, desse modo eu posso oferecer soluções eficazes e superar desafios que você está enfrentando
+  
+  *
+  - - - Ficarei satisfeito em trabalhar para você assim que eu terminar meus projetos, com toda a certeza você ficará impressionado com o que eu sou capaz de fazer</textarea>
+                </div>
+            </div>
+
+
+            <script>
+                // Crie um evento de clique para o botão de fechar
+                document.getElementById("fechar").addEventListener("click", function(){
+                // Oculte a janela
+                document.getElementById("janela").style.display = "none";
+                });
+
+                // Crie um evento de clique para o botão de minimizar
+                document.getElementById("minimizar").addEventListener("click", function(){
+                // Reduza o tamanho da janela
+                document.getElementById("janela").style.width = "200px";
+                document.getElementById("janela").style.height = "50px";
+                });
+
+                // Crie um evento de clique para o botão de maximizar
+                document.getElementById("maximizar").addEventListener("click", function(){
+                // Aumente o tamanho da janela para o tamanho original
+                document.getElementById("janela").style.width = "600px";
+                document.getElementById("janela").style.height = "500px";
+                });
+                // Selecione a barra de título
+                var titulo = document.getElementById("barra-titulo");
+
+                // Adicione um evento de pressionar o botão do mouse à barra de título
+                titulo.addEventListener("mousedown", iniciarArrastar);
+
+                // Função que é chamada quando o mouse é pressionado
+                function iniciarArrastar(e) {
+                // Obtenha a posição atual do mouse
+                var posX = e.clientX;
+                var posY = e.clientY;
+
+                // Obtenha a posição atual da janela
+                var janela = document.getElementById("janela");
+                var janelaX = janela.offsetLeft;
+                var janelaY = janela.offsetTop;
+
+                // Calcule a diferença entre a posição do mouse e a posição da janela
+                var diffX = posX - janelaX;
+                var diffY = posY - janelaY;
+
+                // Adicione eventos de mover e soltar o mouse ao documento
+                document.addEventListener("mousemove", moverJanela);
+                document.addEventListener("mouseup", soltarJanela);
+
+                // Função que é chamada quando o mouse é movido
+                function moverJanela(e) {
+                    // Calcule a nova posição da janela
+                    var novaPosX = e.clientX - diffX;
+                    var novaPosY = e.clientY - diffY;
+
+                    // Atualize a posição da janela
+                    janela.style.left = novaPosX + "px";
+                    janela.style.top = novaPosY + "px";
+                }
+
+                // Função que é chamada quando o mouse é solto
+                function soltarJanela() {
+                    // Remova os eventos de mover e soltar o mouse do documento
+                    document.removeEventListener("mousemove", moverJanela);
+                    document.removeEventListener("mouseup", soltarJanela);
+                }
+                }
+            </script>
+  </div>
+  <button onclick="abrirJanela()">LOL</button>
+  <script>
+    function abrirJanela() {
+			document.getElementById("tudo").style.display = "block";
+		}
+  </script>          
+</body>
+</html>
